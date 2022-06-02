@@ -10,13 +10,13 @@ on:
       - master
 
 jobs:
-    build:
-        name: Call Azure Pipeline
-        runs-on: windows-2019
-        steps:
-        - name: Azure Pipelines Action
-          uses: Azure/pipelines@v1
-          with:
-            azure-devops-project-url: https://dev.azure.com/costaisnotavailable/spotimatch
-            azure-pipeline-name: 'spotimatch-CI'
-            azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+  build:
+    name: Call Azure Pipeline
+    runs-on: windows-2019
+    steps:
+    - name: Azure Pipelines Action
+      uses: Azure/pipelines@v1
+      with:
+        azure-devops-project-url: https://dev.azure.com/carapuce-o-gang/spotimatch
+        azure-pipeline-name: 'spotimatch-CI'
+        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
