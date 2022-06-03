@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
 
-namespace SpotiMatchAPI.NET
+namespace SpotiMatch.Api
 {
     public class Startup
     {

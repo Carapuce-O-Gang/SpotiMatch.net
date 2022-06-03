@@ -1,6 +1,6 @@
 using System;
 
-namespace SpotiMatchAPI.NET
+namespace SpotiMatch.Api
 {
     public class WeatherForecast
     {
