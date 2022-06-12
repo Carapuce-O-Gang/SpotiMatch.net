@@ -10,12 +10,13 @@ export class HomepageComponent implements OnInit {
   
   constructor() { }
   colorDominant: any;
+  showText: boolean = false;
+
   ngOnInit(): void {
     average('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386',{ format: 'hex' }).then(x =>{
       this.colorDominant =  x ;
       document.documentElement.style.setProperty("colorDominant",this.colorDominant);
     },);
-    
   }
 
   setMyStyles() {
@@ -24,6 +25,10 @@ export class HomepageComponent implements OnInit {
     };
     return styles;
   }
-
+  num = '90%';
+  x = '10px'
+  matchButtonClick(){
+    this.showText = true;
+  }
 
 }

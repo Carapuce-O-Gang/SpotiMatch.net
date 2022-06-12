@@ -42,6 +42,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { HomepageComponent } from './homepage/homepage.component';
 
+// Flex layout 
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,6 +89,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 		MatToolbarModule,
 		MatTooltipModule,
 		MatTreeModule,
+		FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
