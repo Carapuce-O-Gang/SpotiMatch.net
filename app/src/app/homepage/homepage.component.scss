@@ -1,104 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap');
+@import url('http://fonts.cdnfonts.com/css/gotham');
 
 .content{
-    margin-top: 2%;
+    margin-top: 6%;
+    font-family: 'Gotham Ultra', sans-serif;
 }
 
-.example-card{
-    width: 100%;
-    display: inline-block;
-    justify-content: center;
-    .mat-card{
-        width: 300px;
-        height: 400px;
-        animation: pulse 3s infinite;
-        color: white;
-        font-family: 'Oswald', sans-serif;
-        &:hover{
-            animation: pulse 1s infinite;
-        }
-        .mat-card-content{
-            font-size: 30px;
-            text-align: center;
-        }
-    }
-    .buttonMatch{
-        margin-right: 1%;
-        margin-left: 1%;
-        color: #ffff;
-        font-size: 30px;
-        height: 150px;
-        width: 150px;
-        border-radius: 50%;
-        box-shadow: 0px 0px 0 0px #fff, 0px 0px 0 0px #555a86 ;
-        transition : linear 0.3s;
-        background: #273746;
-        color: white;
-        font-family: 'Oswald', sans-serif;
-        &:hover{
-            background:white;
-            color: black;
-            animation: pulse 0.8s infinite;
-        }
-        &:active{
-            animation: fade 10s;
-
-        }
-    }
-}
-
-.spaceBetweenMatCard{
-    width: 30%;
-}
-
-@keyframes fade {
-	0% {
-		opacity: 1;
-	}
-	
-	50% {
-		opacity: 0,5;
-	}
-	
-	100% {
-		opacity: 0;
-	}
-}
-
-@keyframes pulse {
-	0% {
-		box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
-	}
-	
-	60% {
-		box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
-	}
-	
-	100% {
-		box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
-	}
-}
-
-@keyframes pulseButton {
-    0%{
-        box-shadow: 0px 0px 0 1px #333, 0px 0px 0 4px #555a86 ;
-        opacity :1;
-      }100%{
-        box-shadow: 0px 0px 0 6px #333, 0px 0px 0 8px #555a86;
-        opacity :0.9;
-      }
-}
-
-.textMatch{
-    color: #fff;
-    transition: height 2s linear;
-}
-
-.example-header-image {
-    background-image: url('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386');
-    background-size: cover;
-    width: 200px;
-    height: 200px;
-    margin: auto;
+.header{
     
-  }
+    background-color: #303137;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    a{
+        background-color: transparent;
+        text-decoration: none;
+        color: white;
+        font-family: 'Gotham Black', sans-serif;
+        font-size: 45px;
+    }
+}
+
+.rightOption{
+    width: 15rem;
+    display: flex;
+    a{
+        margin-right: 2rem;
+    }
+    .mat-icon{
+        display: flex;
+        align-items: center;
+        font-size: 50px;
+    }
+}
+

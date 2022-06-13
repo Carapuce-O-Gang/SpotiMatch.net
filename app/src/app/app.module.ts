@@ -44,11 +44,18 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 // Flex layout 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GoalApiComponent } from './goal-api/goal-api.component';
+import { MatchComponent } from './match/match.component';
+
+//Drag And Drop
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent
+    HomepageComponent,
+    GoalApiComponent,
+    MatchComponent
   ],
   imports: [
     BrowserModule,
@@ -90,6 +97,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 		MatTooltipModule,
 		MatTreeModule,
 		FlexLayoutModule,
+		DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

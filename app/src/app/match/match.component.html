@@ -1,0 +1,56 @@
+<div class="example-card" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="example-card" [ngStyle]="setMyStyles()">
+      <div>
+        <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+      </div>
+        <mat-card-content>
+        NOM PRENOM
+      </mat-card-content>
+    </mat-card>
+    <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
+      <button class="buttonMatch"  (click)="matchButtonClick()"   onclick="style.display = 'none'"> 
+        MATCH ?
+      </button>
+
+      <div [hidden]="!showText" [style.height]="showText ? '150px' : '0px'" class="textMatch">
+         {{num}}
+      </div>
+      
+    </div>
+    
+    <div cdkDropListGroup>
+        <div class="example-container">
+          <h2>Friend list</h2>
+      
+          <div
+            cdkDropList
+            [cdkDropListData]="todo"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of friendlist" cdkDrag>{{item.name}}</div>
+          </div>
+        </div>
+      
+        <div class="example-container">
+          <div
+            cdkDropList
+            [cdkDropListData]="target"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="box" cdkDrag>
+                <mat-card class="example-card" [ngStyle]="setMyStyles()">
+                    <div>
+                      <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+                    </div>
+                      <mat-card-content>
+                      NOM PRENOM
+                    </mat-card-content>
+                    <mat-card-actions>
+                        change card
+                    </mat-card-actions>
+                  </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
