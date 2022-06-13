@@ -6,16 +6,19 @@ using SpotiMatch.Database.Repositories.Interfaces;
 using System.Threading.Tasks;
 using SpotiMatch.Shared.Dtos;
 using System.Threading;
+using AutoMapper;
 
 namespace SpotiMatch.Logic.Services
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
-        private IUserRepository UserRepository { get; }
+        private readonly IMapper Mapper;
+        private readonly IUserRepository UserRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             UserRepository = userRepository;
+            Mapper = mapper;
         }
 
         public Task<IEnumerable<UserDto>> GetUsers(CancellationToken cancellationToken)
