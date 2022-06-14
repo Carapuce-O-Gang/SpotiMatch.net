@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 using SpotiMatch.Database.Entities;
 using SpotiMatch.Database.Repositories.Interfaces;
 
@@ -16,45 +17,45 @@ namespace SpotiMatch.Database.Repositories
             DatabaseContext = databaseContext;
         }
 
-        public List<User> GetUsers()
+        public IQueryable<User> GetUsers()
         {
-            return DatabaseContext.Users.ToList();
+            return DatabaseContext.Users.AsQueryable();
         }
 
-        public User GetUser(int id)
+        public async Task<User> GetUser(int id, CancellationToken cancellationToken)
         {
-            User user = DatabaseContext.Users.Find(id) 
+            User user = await DatabaseContext.Users.FindAsync(id, cancellationToken)
                 ?? throw new ArgumentNullException("User not found");
 
             return user;
         }
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user, CancellationToken cancellationToken)
         {
-            DatabaseContext.Users.Add(user);
+            await DatabaseContext.Users.AddAsync(user, cancellationToken);
             DatabaseContext.SaveChanges();
 
             return user;
         }
 
-        public User UpdateUser(User user)
+        public async Task<User> UpdateUser(User user, CancellationToken cancellationToken)
         {
-            User userToUpdate = DatabaseContext.Users.Find(user.Id)
+            User userToUpdate = await DatabaseContext.Users.FindAsync(user.Id, cancellationToken) 
                 ?? throw new ArgumentNullException("User not found");
 
             DatabaseContext.Users.Update(user);
-            DatabaseContext.SaveChanges();
+            await DatabaseContext.SaveChangesAsync(cancellationToken);
 
             return user;
         }
 
-        public bool DeleteUser(int id)
+        public async Task<bool> DeleteUser(int id, CancellationToken cancellationToken)
         {
-            User userToDelete = DatabaseContext.Users.Find(id)
+            User userToDelete = await DatabaseContext.Users.FindAsync(id)
                 ?? throw new ArgumentNullException("User not found");
 
             DatabaseContext.Users.Remove(userToDelete);
-            DatabaseContext.SaveChanges();
+            await DatabaseContext.SaveChangesAsync(cancellationToken);
 
             return true;
         }

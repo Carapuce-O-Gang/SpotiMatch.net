@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
-using SpotiMatch.Database.Repositories.Interfaces;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SpotiMatch.Database.Entities;
+using SpotiMatch.Logic.Services.Interfaces;
+using SpotiMatch.Shared.Dtos;
 
 namespace SpotiMatch.Api.Controllers
 {
@@ -12,26 +13,31 @@ namespace SpotiMatch.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository UserRepository;
+        private readonly IUserService UserService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            UserRepository = userRepository;
+            UserService = userService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
         {
-            List<User> users = await Task.FromResult(UserRepository.GetUsers());
+            IEnumerable<UserDto> users = await UserService.GetUsers(HttpContext.RequestAborted);
+
+            if (users == null || !users.Any())
+            {
+                return NotFound();
+            }
 
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<User>>> Get(int id)
+        public async Task<ActionResult<UserDto>> Get(int id)
         {
 
-            User user = await Task.FromResult(UserRepository.GetUser(id));
+            UserDto user = await UserService.GetUser(id, HttpContext.RequestAborted);
 
             if (user == null)
             {
@@ -42,27 +48,27 @@ namespace SpotiMatch.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Post(User user)
+        public async Task<ActionResult<UserDto>> Post(UserDto user)
         {
-            User postedUser = await Task.FromResult(UserRepository.AddUser(user));
+            UserDto addedUser = await UserService.AddUser(user, HttpContext.RequestAborted);
             
-            if (postedUser == null)
+            if (addedUser == null)
             {
                 NotFound();
             }
 
-            return Ok(postedUser);
+            return Ok(addedUser);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Put(int id, User user)
+        public async Task<ActionResult<UserDto>> Put(int id, UserDto user)
         {
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            User updatedUser = await Task.FromResult(UserRepository.UpdateUser(user));
+            UserDto updatedUser = await UserService.UpdateUser(user, HttpContext.RequestAborted);
 
             if (updatedUser == null)
             {
@@ -75,7 +81,7 @@ namespace SpotiMatch.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            bool isDeleted = await Task.FromResult(UserRepository.DeleteUser(id));
+            bool isDeleted = await UserService.DeleteUser(id, HttpContext.RequestAborted);
 
             if (!isDeleted)
             {

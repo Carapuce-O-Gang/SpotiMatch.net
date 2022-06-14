@@ -4,9 +4,12 @@ using System.Text;
 using SpotiMatch.Logic.Services.Interfaces;
 using SpotiMatch.Database.Repositories.Interfaces;
 using System.Threading.Tasks;
-using SpotiMatch.Shared.Dtos;
 using System.Threading;
+using System.Linq;
 using AutoMapper;
+using SpotiMatch.Shared.Dtos;
+using SpotiMatch.Logic.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpotiMatch.Logic.Services
 {
@@ -21,29 +24,38 @@ namespace SpotiMatch.Logic.Services
             Mapper = mapper;
         }
 
-        public Task<IEnumerable<UserDto>> GetUsers(CancellationToken cancellationToken)
+        public async Task<IEnumerable<UserDto>> GetUsers(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            List<UserDto> users = (await UserRepository
+                .GetUsers()
+                .ToListAsync(cancellationToken))
+                .Select(user => user.ToDto(Mapper))
+                .ToList();
+
+            return users;
         }
 
-        public Task<UserDto> GetUser(CancellationToken cancellationToken)
+        public async Task<UserDto> GetUser(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return (await UserRepository.GetUser(id, cancellationToken))
+                .ToDto(Mapper);
         }
 
-        public Task<UserDto> AddUser(CancellationToken cancellationToken)
+        public async Task<UserDto> AddUser(UserDto user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return (await UserRepository.AddUser(user.ToEntity(Mapper), cancellationToken))
+                .ToDto(Mapper);
         }
 
-        public Task<UserDto> UpdateUser(CancellationToken cancellationToken)
+        public async Task<UserDto> UpdateUser(UserDto user, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return (await UserRepository.UpdateUser(user.ToEntity(Mapper), cancellationToken))
+                .ToDto(Mapper);
         }
 
-        public Task<bool> DeleteUser(CancellationToken cancellationToken)
+        public async Task<bool> DeleteUser(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await UserRepository.DeleteUser(id, cancellationToken);
         }
     }
 }

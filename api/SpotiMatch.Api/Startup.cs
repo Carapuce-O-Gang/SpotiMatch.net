@@ -7,8 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using SpotiMatch.Database;
 using SpotiMatch.Database.Repositories;
 using SpotiMatch.Database.Repositories.Interfaces;
-using AutoMapper;
 using SpotiMatch.Logic.Mappings;
+using SpotiMatch.Logic.Services;
+using SpotiMatch.Logic.Services.Interfaces;
 
 namespace SpotiMatch.Api
 {
@@ -24,12 +25,21 @@ namespace SpotiMatch.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Mapper
             services.AddAutoMapper(
                 typeof(EntitiesProfile),
                 typeof(DtosProfile)
             );
+
+            // Database context
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
+           
+            // Repositories
             services.AddTransient<IUserRepository, UserRepository>();
+
+            // Services
+            services.AddSingleton<IUserService, UserService>();
+
             services.AddControllers();
             services.AddSwaggerGen();
         }

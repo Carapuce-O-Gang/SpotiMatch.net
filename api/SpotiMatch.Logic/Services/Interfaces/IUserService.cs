@@ -9,12 +9,12 @@ namespace SpotiMatch.Logic.Services.Interfaces
     {
         Task<IEnumerable<UserDto>> GetUsers(CancellationToken cancellationToken = default);
 
-        Task<UserDto> GetUser(CancellationToken cancellationToken = default);
+        Task<UserDto> GetUser(int id, CancellationToken cancellationToken = default);
 
-        Task<UserDto> AddUser(CancellationToken cancellationToken = default);
+        Task<UserDto> AddUser(UserDto user, CancellationToken cancellationToken = default);
 
-        Task<UserDto> UpdateUser(CancellationToken cancellationToken = default);
+        Task<UserDto> UpdateUser(UserDto user, CancellationToken cancellationToken = default);
 
-        Task<bool> DeleteUser(CancellationToken cancellationToken = default);
+        Task<bool> DeleteUser(int id, CancellationToken cancellationToken = default);
     }
 }
