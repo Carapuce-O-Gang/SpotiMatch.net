@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using SpotiMatch.Database.Entities;
 using SpotiMatch.Database.Repositories.Interfaces;
 
@@ -24,7 +25,7 @@ namespace SpotiMatch.Database.Repositories
 
         public async Task<User> GetUser(int id, CancellationToken cancellationToken)
         {
-            User user = await DatabaseContext.Users.FindAsync(id, cancellationToken)
+            User user = await DatabaseContext.Users.FindAsync(new object[]{id}, cancellationToken)
                 ?? throw new ArgumentNullException("User not found");
 
             return user;
@@ -40,10 +41,10 @@ namespace SpotiMatch.Database.Repositories
 
         public async Task<User> UpdateUser(User user, CancellationToken cancellationToken)
         {
-            User userToUpdate = await DatabaseContext.Users.FindAsync(user.Id, cancellationToken) 
+            User userToUpdate = await DatabaseContext.Users.FindAsync(new object[]{user.Id}, cancellationToken) 
                 ?? throw new ArgumentNullException("User not found");
 
-            DatabaseContext.Users.Update(user);
+            DatabaseContext.Entry(userToUpdate).State = EntityState.Modified;
             await DatabaseContext.SaveChangesAsync(cancellationToken);
 
             return user;
@@ -51,7 +52,7 @@ namespace SpotiMatch.Database.Repositories
 
         public async Task<bool> DeleteUser(int id, CancellationToken cancellationToken)
         {
-            User userToDelete = await DatabaseContext.Users.FindAsync(id)
+            User userToDelete = await DatabaseContext.Users.FindAsync(new object[]{id})
                 ?? throw new ArgumentNullException("User not found");
 
             DatabaseContext.Users.Remove(userToDelete);
