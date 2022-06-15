@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//Angualar Material
+//Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -50,6 +50,12 @@ import { MatchComponent } from './match/match.component';
 //Drag And Drop
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
+//Api
+import { HttpClientModule } from '@angular/common/http';
+
+//Guards
+import { AuthorizeGuard } from 'src/guards/authorize';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,44 +68,45 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-		MatBadgeModule,
-		MatBottomSheetModule,
-		MatButtonModule,
-		MatButtonToggleModule,
-		MatCardModule,
-		MatCheckboxModule,
-		MatChipsModule,
-		MatStepperModule,
-		MatDatepickerModule,
-		MatDialogModule,
-		MatDividerModule,
-		MatExpansionModule,
-		MatGridListModule,
-		MatIconModule,
-		MatInputModule,
-		MatListModule,
-		MatMenuModule,
-		MatNativeDateModule,
-		MatPaginatorModule,
-		MatProgressBarModule,
-		MatProgressSpinnerModule,
-		MatRadioModule,
-		MatRippleModule,
-		MatSelectModule,
-		MatSidenavModule,
-		MatSliderModule,
-		MatSlideToggleModule,
-		MatSnackBarModule,
-		MatSortModule,
-		MatTableModule,
-		MatTabsModule,
-		MatToolbarModule,
-		MatTooltipModule,
-		MatTreeModule,
-		FlexLayoutModule,
-		DragDropModule,
+	MatBadgeModule,
+	MatBottomSheetModule,
+	MatButtonModule,
+	MatButtonToggleModule,
+	MatCardModule,
+	MatCheckboxModule,
+	MatChipsModule,
+	MatStepperModule,
+	MatDatepickerModule,
+	MatDialogModule,
+	MatDividerModule,
+	MatExpansionModule,
+	MatGridListModule,
+	MatIconModule,
+	MatInputModule,
+	MatListModule,
+	MatMenuModule,
+	MatNativeDateModule,
+	MatPaginatorModule,
+	MatProgressBarModule,
+	MatProgressSpinnerModule,
+	MatRadioModule,
+	MatRippleModule,
+	MatSelectModule,
+	MatSidenavModule,
+	MatSliderModule,
+	MatSlideToggleModule,
+	MatSnackBarModule,
+	MatSortModule,
+	MatTableModule,
+	MatTabsModule,
+	MatToolbarModule,
+	MatTooltipModule,
+	MatTreeModule,
+	FlexLayoutModule,
+	DragDropModule,
+	HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthorizeGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

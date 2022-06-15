@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { average } from 'color.js'
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-match',
@@ -34,24 +34,30 @@ export class MatchComponent implements OnInit {
     this.showText = true;
   }
 
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
   friendlist = [{name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'}];
   target: any[] = [];
 
-  drop(event: CdkDragDrop<string[]>) {
-    //moveItemInArray(this.movies, event.previousIndex, event.currentIndex);
+  drop(event: CdkDragDrop<any[]>){
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-      this.target.length = 0;
-      this.target.push(event.container.data);
-      console.log(this.target);
+      if(this.target.length === 0){
+        copyArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
+      else{
+        this.target.splice(0);
+        copyArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
     }
   }
 }

@@ -1,56 +1,65 @@
-<div class="example-card" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="example-card" [ngStyle]="setMyStyles()">
-      <div>
-        <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
-      </div>
-        <mat-card-content>
-        NOM PRENOM
-      </mat-card-content>
-    </mat-card>
-    <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
-      <button class="buttonMatch"  (click)="matchButtonClick()"   onclick="style.display = 'none'"> 
-        MATCH ?
-      </button>
-
-      <div [hidden]="!showText" [style.height]="showText ? '150px' : '0px'" class="textMatch">
-         {{num}}
-      </div>
-      
-    </div>
+<mat-drawer-container class="content-match" autosize cdkDropListGroup>
+  <mat-drawer #drawer class="sideNav" mode="side" position="end" >
     
-    <div cdkDropListGroup>
-        <div class="example-container">
-          <h2>Friend list</h2>
-      
-          <div
-            cdkDropList
-            [cdkDropListData]="todo"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of friendlist" cdkDrag>{{item.name}}</div>
-          </div>
+    <div class="example-container">
+      FriendList
+      <ul cdkDropList [cdkDropListData]="friendlist" class="sideNavList"
+        (cdkDropListDropped)="drop($event)">
+        <li class="example-box" *ngFor="let item of friendlist" cdkDrag>
+          {{item.name}}
+        </li>
+      </ul>
+    </div>
+
+  </mat-drawer>
+
+
+  <div class="example-card" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="example-card" [ngStyle]="setMyStyles()">
+        <div>
+          <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
         </div>
+          <mat-card-content>
+          NOM PRENOM
+        </mat-card-content>
+      </mat-card>
+      <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
+        <button class="buttonMatch"  (click)="matchButtonClick()"   onclick="style.display = 'none'"> 
+          MATCH ?
+        </button>
+
+        <div [hidden]="!showText" [style.height]="showText ? '150px' : '0px'" class="textMatch">
+          {{num}}
+        </div>
+        
+      </div>
+
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
       
-        <div class="example-container">
-          <div
-            cdkDropList
+      <div >
+
+      
+        <div class="drop-zone">
+          <ul cdkDropList
             [cdkDropListData]="target"
-            class="example-list"
             (cdkDropListDropped)="drop($event)">
-            <div class="box" cdkDrag>
+            <li class="example-box"  *ngFor="let user of target" cdkDrag>
                 <mat-card class="example-card" [ngStyle]="setMyStyles()">
-                    <div>
-                      <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
-                    </div>
-                      <mat-card-content>
-                      NOM PRENOM
-                    </mat-card-content>
-                    <mat-card-actions>
-                        change card
-                    </mat-card-actions>
-                  </mat-card>
-            </div>
-          </div>
+                  <div>
+                    <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+                  </div>
+                    <mat-card-content>
+                      {{user.name}}
+                  </mat-card-content>
+                </mat-card>
+            </li>
+          </ul>
         </div>
       </div>
-</div>
+  </div>
+</mat-drawer-container>
+
+
+
