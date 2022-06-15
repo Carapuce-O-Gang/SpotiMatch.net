@@ -32,10 +32,10 @@ namespace SpotiMatch.Api
             );
 
             // Database context
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")), ServiceLifetime.Singleton);
            
             // Repositories
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
 
             // Services
             services.AddSingleton<IUserService, UserService>();
