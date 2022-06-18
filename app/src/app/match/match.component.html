@@ -1,64 +1,67 @@
 <mat-drawer-container class="content-match" autosize cdkDropListGroup>
   <mat-drawer #drawer class="sideNav" mode="side" position="end" >
-    
-    <div class="example-container">
-      FriendList
+    <div class="side-nav-friendlist">
+      <span class="sidenav-title"> FriendList </span> 
       <ul cdkDropList [cdkDropListData]="friendlist" class="sideNavList"
         (cdkDropListDropped)="drop($event)">
-        <li class="example-box" *ngFor="let item of friendlist" cdkDrag>
+        <li class="itemDrag" *ngFor="let item of friendlist" cdkDrag>
           {{item.name}}
         </li>
       </ul>
     </div>
-
   </mat-drawer>
+  <div class="content-card">
 
+    <div class="example-card" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="example-card" [ngStyle]="setMyStyles()">
+          <div>
+            <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+          </div>
+            <mat-card-content>
+            NOM PRENOM
+          </mat-card-content>
+        </mat-card>
+        <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
+          <button class="buttonMatch"  (click)="matchButtonClick()"   onclick="style.display = 'none'"> 
+            Match
+          </button>
 
-  <div class="example-card" fxLayout="row" fxLayoutAlign="center center">
-      <mat-card class="example-card" [ngStyle]="setMyStyles()">
-        <div>
-          <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+          <div [hidden]="!showText" [style.height]="showText ? '350px' : '0px'" class="textMatch">
+            <app-results [options]="options"></app-results>
+          </div>
+
+          
         </div>
-          <mat-card-content>
-          NOM PRENOM
-        </mat-card-content>
-      </mat-card>
-      <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
-        <button class="buttonMatch"  (click)="matchButtonClick()"   onclick="style.display = 'none'"> 
-          MATCH ?
-        </button>
 
-        <div [hidden]="!showText" [style.height]="showText ? '150px' : '0px'" class="textMatch">
-          {{num}}
-        </div>
         
-      </div>
+        <div >
 
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-      
-      <div >
-
-      
-        <div class="drop-zone">
-          <ul cdkDropList
-            [cdkDropListData]="target"
-            (cdkDropListDropped)="drop($event)">
-            <li class="example-box"  *ngFor="let user of target" cdkDrag>
-                <mat-card class="example-card" [ngStyle]="setMyStyles()">
-                  <div>
-                    <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
-                  </div>
-                    <mat-card-content>
-                      {{user.name}}
-                  </mat-card-content>
-                </mat-card>
-            </li>
-          </ul>
+        
+          <div class="drop-zone">
+            <ul cdkDropList
+              [cdkDropListData]="target"
+              (cdkDropListDropped)="drop($event)">
+              <li class="itemCardDropZone"  *ngFor="let user of target">
+                  <mat-card class="example-card" [ngStyle]="setMyStyles()">
+                    <div>
+                      <div mat-card-avatar src='https://material.angular.io/assets/img/examples/shiba1.jpg' class="example-header-image"></div>
+                    </div>
+                      <mat-card-content>
+                        {{user.name}}
+                    </mat-card-content>
+                  </mat-card>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+    </div>
   </div>
+
+  <button type="button" class="button-menu" mat-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+
 </mat-drawer-container>
 
 

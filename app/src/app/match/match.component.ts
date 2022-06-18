@@ -11,7 +11,8 @@ export class MatchComponent implements OnInit {
 
   colorDominant: any;
   showText: boolean = false;
-  num = '90%';
+  num =10;
+  options:number = 0;
 
 
   constructor() { }
@@ -32,9 +33,23 @@ export class MatchComponent implements OnInit {
 
   matchButtonClick(){
     this.showText = true;
+    if(this.num < 30 ){
+      this.options = 1;
+    }
+    if(this.num >= 30 && this.num < 80){
+      this.options = 2;
+    }
+    if(this.num >= 80){
+      this.options = 3;
+    }
   }
 
-  friendlist = [{name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'}];
+  friendlist = [{name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'},
+   {name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'},{name:'Paul',age:'14'},
+   {name:'Baba',age:'15'},{name:'Pedro',age:'16'},{name:'Paul',age:'14'}, {name:'Baba',age:'15'},
+   {name:'Pedro',age:'16'},{name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'},
+   {name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'}];
+
   target: any[] = [];
 
   drop(event: CdkDragDrop<any[]>){
@@ -60,4 +75,6 @@ export class MatchComponent implements OnInit {
       }
     }
   }
+
+  
 }
