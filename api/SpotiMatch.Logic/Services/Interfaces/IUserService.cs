@@ -11,8 +11,6 @@ namespace SpotiMatch.Logic.Services.Interfaces
 
         Task<UserDto> GetUser(int id, CancellationToken cancellationToken = default);
 
-        Task<UserDto> AddUser(UserDto user, CancellationToken cancellationToken = default);
-
         Task<UserDto> UpdateUser(UserDto user, CancellationToken cancellationToken = default);
 
         Task<bool> DeleteUser(int id, CancellationToken cancellationToken = default);

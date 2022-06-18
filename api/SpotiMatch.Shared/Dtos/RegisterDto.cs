@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SpotiMatch.Shared.Dtos
 {
-    public class UserDto
+    public class RegisterDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
+        public string PasswordConfirmation { get; set; }
         public string AuthorizationToken { get; set; }
-        public DateTime CreatedOn { get; set; }
     }
 }

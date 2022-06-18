@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SpotiMatch.Database.Entities;
+using Microsoft.AspNetCore.Authorization;
 using SpotiMatch.Logic.Services.Interfaces;
 using SpotiMatch.Shared.Dtos;
 
 namespace SpotiMatch.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -45,50 +46,6 @@ namespace SpotiMatch.Api.Controllers
             }
 
             return Ok(user);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<UserDto>> Post(UserDto user)
-        {
-            UserDto addedUser = await UserService.AddUser(user, HttpContext.RequestAborted);
-            
-            if (addedUser == null)
-            {
-                NotFound();
-            }
-
-            return Ok(addedUser);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<UserDto>> Put(int id, UserDto user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            UserDto updatedUser = await UserService.UpdateUser(user, HttpContext.RequestAborted);
-
-            if (updatedUser == null)
-            {
-                NotFound();
-            }
-
-            return Ok(updatedUser);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            bool isDeleted = await UserService.DeleteUser(id, HttpContext.RequestAborted);
-
-            if (!isDeleted)
-            {
-                return NotFound();
-            }
-
-            return Ok();
         }
     }
 }

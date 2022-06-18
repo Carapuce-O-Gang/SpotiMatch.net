@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SpotiMatch.Database.Migrations
 {
-    public partial class AddUsers : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,8 @@ namespace SpotiMatch.Database.Migrations
                     DisplayName = table.Column<string>(maxLength: 50, nullable: true),
                     Email = table.Column<string>(maxLength: 50, nullable: true),
                     Password = table.Column<string>(maxLength: 30, nullable: true),
+                    AuthorizationToken = table.Column<string>(maxLength: 200, nullable: true),
+                    AccessToken = table.Column<string>(maxLength: 200, nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

@@ -1,9 +1,13 @@
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using SpotiMatch.Database;
 using SpotiMatch.Database.Repositories;
 using SpotiMatch.Database.Repositories.Interfaces;
@@ -31,17 +35,58 @@ namespace SpotiMatch.Api
                 typeof(DtosProfile)
             );
 
+            // Authentification
+            string signingKey = Configuration.GetValue<string>("AppConfiguration:SigningKey");
+            string appName = Configuration.GetValue<string>("AppConfiguration:AppName");
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = appName,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
+                };
+            });
+
             // Database context
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")), ServiceLifetime.Singleton);
-           
+
             // Repositories
             services.AddSingleton<IUserRepository, UserRepository>();
 
             // Services
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IAuthService, AuthService>();
 
             services.AddControllers();
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(s =>
+            {
+                s.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                });
+
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = JwtBearerDefaults.AuthenticationScheme
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,9 +99,13 @@ namespace SpotiMatch.Api
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -8,10 +8,14 @@
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Collection" Version="8.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.24" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.25" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.19.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Spotimatch.Database\SpotiMatch.Database.csproj" />
+    <ProjectReference Include="..\SpotiMatch.Database\SpotiMatch.Database.csproj" />
     <ProjectReference Include="..\SpotiMatch.Shared\SpotiMatch.Shared.csproj" />
   </ItemGroup>
 
