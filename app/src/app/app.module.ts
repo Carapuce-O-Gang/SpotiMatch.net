@@ -55,13 +55,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 //Guards
 import { AuthorizeGuard } from 'src/guards/authorize';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     GoalApiComponent,
-    MatchComponent
+    MatchComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
