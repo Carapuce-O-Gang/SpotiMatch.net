@@ -127,10 +127,12 @@
 
 .sideNavList {
   width: 300px;
-  max-width: 100%;
-  min-height: 60px;
   display: flex;
   flex-direction: column;
+  li:hover{
+    background-color: #121212;
+    opacity: 0.5;
+  }
 }
 
 .itemDrag {

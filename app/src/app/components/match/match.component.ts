@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { average } from 'color.js'
-import { CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { async } from 'rxjs';
+import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-match',
