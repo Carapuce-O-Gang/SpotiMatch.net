@@ -9,8 +9,8 @@ import { FormControl, Validators } from '@angular/forms';
 
 export class LoginComponent implements OnInit {
 
-	public username = new FormControl('', [Validators.required]);
-	public password = new FormControl('', [Validators.required]);
+	public username: FormControl = new FormControl('', [Validators.required]);
+	public password: FormControl = new FormControl('', [Validators.required]);
 
 	constructor() {}
 

@@ -9,10 +9,10 @@ import { FormControl, Validators } from '@angular/forms';
 
 export class RegisterComponent implements OnInit {
 
-	public name = new FormControl('', [Validators.required]);
-	public username = new FormControl('', [Validators.required]);
-	public password = new FormControl('', [Validators.required]);
-	public confirm = new FormControl('', [Validators.required]);
+	public name: FormControl = new FormControl('', [Validators.required]);
+	public username: FormControl = new FormControl('', [Validators.required]);
+	public password: FormControl = new FormControl('', [Validators.required]);
+	public confirm: FormControl = new FormControl('', [Validators.required]);
 
 	constructor() {}
 
