@@ -22,10 +22,6 @@ export class LoginComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
-		
-	}
-
-	public onCreateCtx(): void {
 
 	}
 

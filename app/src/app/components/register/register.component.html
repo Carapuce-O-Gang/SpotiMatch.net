@@ -1,1 +1,38 @@
-<p>register works!</p>
+<mat-card class="spotimatch-register-card">
+	<mat-card-title>Sign Up</mat-card-title>
+	<mat-card-content>
+		<form>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Name</mat-label>
+					<input matInput type="text" [formControl]="name" required>
+					<mat-error *ngIf="name.invalid">{{ getErrorMessage(name) }}</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Username</mat-label>
+					<input matInput type="text" [formControl]="username" required>
+					<mat-error *ngIf="username.invalid">{{ getErrorMessage(username) }}</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Password</mat-label>
+					<input matInput type="password" [formControl]="password" required>
+					<mat-error *ngIf="password.invalid">{{ getErrorMessage(password) }}</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Confirm</mat-label>
+					<input matInput type="password" [formControl]="confirm" required>
+					<mat-error *ngIf="confirm.invalid || password.value == confirm.value">{{ getErrorMessage(confirm) }}</mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button color="primary" (click)="onSubmit()">Create Account</button>
+	</mat-card-actions>
+</mat-card>
