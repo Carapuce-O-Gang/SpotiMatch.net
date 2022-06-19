@@ -22,10 +22,9 @@ namespace SpotiMatch.Logic.Mappings
                 .ForMember(m => m.Name, o => o.MapFrom(d => d.Name))
                 .ForMember(m => m.DisplayName, o => o.MapFrom(d => d.DisplayName))
                 .ForMember(m => m.Email, o => o.MapFrom(d => d.Email))
-                .ForMember(m => m.Password, o => o.Ignore())
+                .ForMember(m => m.AccessToken, o => o.Ignore())
                 .ForMember(m => m.CreatedOn, o => o.MapFrom(d => d.CreatedOn))
-                .ReverseMap()
-                .ForMember(d => d.Password, o => o.MapFrom(m => m.Password));
+                .ReverseMap();
         }
     }
 }

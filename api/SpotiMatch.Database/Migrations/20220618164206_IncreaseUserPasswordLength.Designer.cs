@@ -10,8 +10,8 @@ using SpotiMatch.Database;
 namespace SpotiMatch.Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220612202537_AddUsers")]
-    partial class AddUsers
+    [Migration("20220618164206_IncreaseUserPasswordLength")]
+    partial class IncreaseUserPasswordLength
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,14 @@ namespace SpotiMatch.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccessToken")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("AuthorizationToken")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -44,8 +52,8 @@ namespace SpotiMatch.Database.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 

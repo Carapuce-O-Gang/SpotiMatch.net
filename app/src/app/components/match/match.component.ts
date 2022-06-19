@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { average } from 'color.js'
-import {CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, copyArrayItem, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-match',
@@ -11,13 +11,14 @@ export class MatchComponent implements OnInit {
 
   colorDominant: any;
   showText: boolean = false;
-  num = '90%';
+  num = 60;
+  options:number = 0;
 
 
   constructor() { }
 
   ngOnInit(): void {
-    average('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386',{ format: 'hex' }).then( x => {
+    average(this.friendlist[0].img,{ format: 'hex' }).then( x => {
       this.colorDominant =  x ;
       document.documentElement.style.setProperty("colorDominant",this.colorDominant);
     },);
@@ -32,12 +33,24 @@ export class MatchComponent implements OnInit {
 
   matchButtonClick(){
     this.showText = true;
+    if(this.num < 30 ){
+      this.options = 1;
+    }
+    if(this.num >= 30 && this.num < 80){
+      this.options = 2;
+    }
+    if(this.num >= 80){
+      this.options = 3;
+    }
   }
 
-  friendlist = [{name:'Paul',age:'14'}, {name:'Baba',age:'15'},{name:'Pedro',age:'16'}];
+  friendlist = [{name:'Paul',age:'14', img:'https://pbs.twimg.com/media/E0o2L4iWUAUiA9I.jpg'}];
+
   target: any[] = [];
 
   drop(event: CdkDragDrop<any[]>){
+
+    
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -60,4 +73,6 @@ export class MatchComponent implements OnInit {
       }
     }
   }
+
+
 }

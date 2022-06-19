@@ -40,12 +40,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { HomepageComponent } from './homepage/homepage.component';
 
-// Flex layout 
+// Flex layout
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { GoalApiComponent } from './goal-api/goal-api.component';
-import { MatchComponent } from './match/match.component';
 
 //Drag And Drop
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -56,12 +53,21 @@ import { HttpClientModule } from '@angular/common/http';
 //Guards
 import { AuthorizeGuard } from 'src/guards/authorize';
 
+// Custom components
+import { HomepageComponent } from '@components/homepage/homepage.component';
+import { ResultsComponent } from '@components/results/results.component';
+import { GoalApiComponent } from '@components/goal-api/goal-api.component';
+import { MatchComponent } from '@components/match/match.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     GoalApiComponent,
-    MatchComponent
+    MatchComponent,
+    ResultsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

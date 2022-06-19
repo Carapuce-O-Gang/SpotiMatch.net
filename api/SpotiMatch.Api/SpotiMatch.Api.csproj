@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Spotimatch.Database\SpotiMatch.Database.csproj" />
+    <ProjectReference Include="..\SpotiMatch.Database\SpotiMatch.Database.csproj" />
     <ProjectReference Include="..\SpotiMatch.Logic\SpotiMatch.Logic.csproj" />
     <ProjectReference Include="..\SpotiMatch.Shared\SpotiMatch.Shared.csproj" />
   </ItemGroup>

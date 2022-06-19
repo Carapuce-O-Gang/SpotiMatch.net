@@ -1,0 +1,29 @@
+@import url('http://fonts.cdnfonts.com/css/gotham');
+
+
+.page-api{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Gotham', sans-serif;
+}
+
+
+.content{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+
+.line{
+    height: 33%;
+    padding: 30px;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    h1{
+       flex-direction: row; 
+    }
+
+}

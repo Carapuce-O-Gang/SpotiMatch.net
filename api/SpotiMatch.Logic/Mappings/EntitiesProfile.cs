@@ -12,7 +12,7 @@ namespace SpotiMatch.Logic.Mappings
     {
         public EntitiesProfile()
         {
-            this.CreateUserMap();
+            CreateUserMap();
         }
 
         private void CreateUserMap()
@@ -22,10 +22,11 @@ namespace SpotiMatch.Logic.Mappings
                 .ForMember(m => m.Name, o => o.MapFrom(e => e.Name))
                 .ForMember(m => m.DisplayName, o => o.MapFrom(e => e.DisplayName))
                 .ForMember(m => m.Email, o => o.MapFrom(e => e.Email))
-                .ForMember(m => m.Password, o => o.Ignore())
+                .ForMember(m => m.AuthorizationToken, o => o.MapFrom(e => e.AuthorizationToken))
+                .ForMember(m => m.AccessToken, o => o.MapFrom(e => e.AccessToken))
                 .ForMember(m => m.CreatedOn, o => o.MapFrom(e => e.CreatedOn))
                 .ReverseMap()
-                .ForMember(e => e.Password, o => o.MapFrom(m => m.Password));
+                .ForMember(e => e.Password, o => o.Ignore());
         }
     }
 }

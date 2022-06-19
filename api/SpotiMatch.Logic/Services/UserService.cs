@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SpotiMatch.Logic.Services.Interfaces;
-using SpotiMatch.Database.Repositories.Interfaces;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
 using AutoMapper;
-using SpotiMatch.Shared.Dtos;
-using SpotiMatch.Logic.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Crypt = BCrypt.Net;
+using SpotiMatch.Logic.Services.Interfaces;
+using SpotiMatch.Database.Repositories.Interfaces;
+using SpotiMatch.Shared.Dtos;
+using SpotiMatch.Database.Entities;
+using SpotiMatch.Logic.Extensions;
 
 namespace SpotiMatch.Logic.Services
 {
@@ -38,12 +40,6 @@ namespace SpotiMatch.Logic.Services
         public async Task<UserDto> GetUser(int id, CancellationToken cancellationToken)
         {
             return (await UserRepository.GetUser(id, cancellationToken))
-                .ToDto(Mapper);
-        }
-
-        public async Task<UserDto> AddUser(UserDto user, CancellationToken cancellationToken)
-        {
-            return (await UserRepository.AddUser(user.ToEntity(Mapper), cancellationToken))
                 .ToDto(Mapper);
         }
 
