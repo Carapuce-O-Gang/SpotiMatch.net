@@ -1,11 +1,11 @@
-import { registerData } from './model/register.model';
-import { loginData } from './model/login.model';
+import { registerData } from '../../model/register.model';
+import { loginData } from '../../model/login.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, Observable, Subscription, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from './model/user';
-import { Auth } from './model/auth.model';
+import { User } from '../../model/user';
+import { Auth } from '../../model/auth.model';
 
 @Injectable({
   providedIn: 'root'
