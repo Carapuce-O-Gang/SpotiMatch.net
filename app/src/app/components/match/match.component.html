@@ -13,7 +13,7 @@
   <div class="content-card">
 
     <div class="example-card" fxLayout="row" fxLayoutAlign="center center">
-        <mat-card class="example-card" [ngStyle]="setMyStyles()">
+        <mat-card class="example-card" [ngStyle]="userSetMyStyles()">
           <div>
             <div mat-card-avatar style="background-image: url('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386');" class="example-header-image"></div>
           </div>
@@ -42,7 +42,7 @@
               [cdkDropListData]="target"
               (cdkDropListDropped)="drop($event)">
               <li class="itemCardDropZone"  *ngFor="let user of target">
-                  <mat-card class="example-card" [ngStyle]="setMyStyles()">
+                  <mat-card class="example-card" [ngStyle]="style">
                     <div>
                       <div mat-card-avatar style="background-image: url('{{user.img}}');" class="example-header-image"></div>
                     </div>
