@@ -4,18 +4,19 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
+
 export class AuthorizeGuard implements CanActivate {
-  constructor() {}
+	constructor() {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    const authorizeUrl = 'https://accounts.spotify.com/authorize'+
-    `?client_id=${environment.clientId}`+
-    `&redirect_uri=${environment.redirectUri}`+
-    `&response_type=code`;
+	public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+		const authorizeUrl = 'https://accounts.spotify.com/authorize'+
+		`?client_id=${environment.clientId}`+
+		`&redirect_uri=${environment.redirectUri}`+
+		`&response_type=code`;
 
-    window.location.href = authorizeUrl;
-    return true;
-  }
+		window.location.href = authorizeUrl;
+		return true;
+	}
 }
