@@ -6,12 +6,13 @@ import { RegisterComponent } from '@components/register/register.component';
 import { HomepageComponent } from '@components/homepage/homepage.component';
 import { GoalApiComponent } from '@components/goal-api/goal-api.component';
 import { MatchComponent } from '@components/match/match.component';
+import { AuthorizeGuard } from 'src/guards/authorize';
 
 const routes: Routes = [
+  { path: 'home', component: HomepageComponent },
+  { path: 'match', component: MatchComponent },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
-	{ path: 'home', component: HomepageComponent },
-	{ path: 'match', component: MatchComponent },
 	{ path: 'goal-api', component: GoalApiComponent },
 	{ path: '', component: LoginComponent, pathMatch: 'full' },
 ];

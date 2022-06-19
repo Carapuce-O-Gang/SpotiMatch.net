@@ -28,6 +28,9 @@ namespace SpotiMatch.Database.Entities
         [MaxLength(200)]
         public string AccessToken { get; set; }
 
+        [MaxLength(200)]
+        public string RefreshToken { get; set; }
+
         public DateTime CreatedOn { get; set; }
     }
 }

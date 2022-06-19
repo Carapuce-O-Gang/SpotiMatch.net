@@ -61,6 +61,7 @@ namespace SpotiMatch.Api
             // Services
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<ISpotifyService, SpotifyService>();
 
             services.AddControllers();
             services.AddSwaggerGen(s =>
