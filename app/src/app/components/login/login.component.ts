@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 			password: this.password.value
 		};
 
-		console.table();
+		console.table(data);
 	}
 
 	public ngOnInit(): void {
