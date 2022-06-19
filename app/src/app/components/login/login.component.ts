@@ -22,7 +22,12 @@ export class LoginComponent implements OnInit {
 	}
 
 	public onSubmit(): void {
+		let data = {
+			username: this.username.value,
+			password: this.password.value
+		};
 
+		console.table();
 	}
 
 	public ngOnInit(): void {
