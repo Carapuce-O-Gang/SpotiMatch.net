@@ -1,5 +1,5 @@
-import { registerData } from '../../model/register.model';
-import { loginData } from '../../model/login.model';
+import { RegisterData } from '../../model/register.model';
+import { LoginData } from '../../model/login.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, Observable, Subscription, throwError } from 'rxjs';
@@ -51,9 +51,9 @@ export class ApiService {
     })
   }
 
-  login(loginData: loginData){
+  login(LoginData: LoginData){
     const url = `${this.baseUrl}/login`;
-    return this.http.post<Auth>(url,loginData,{headers: this.httpOptions.headers}).subscribe(data => {
+    return this.http.post<Auth>(url,LoginData,{headers: this.httpOptions.headers}).subscribe(data => {
       if (data.token) {
         localStorage.setItem('token', data.token);
         return data;
@@ -67,9 +67,9 @@ export class ApiService {
   }
   
 
-  register(registerData: registerData){
+  register(RegisterData: RegisterData){
     const url = `${this.baseUrl}/register`;
-    return this.http.post<User>(url,registerData,{headers: this.httpOptions.headers}).subscribe(data => {
+    return this.http.post<User>(url,RegisterData,{headers: this.httpOptions.headers}).subscribe(data => {
       return data
     },
     error => {
@@ -78,14 +78,5 @@ export class ApiService {
       return error;
     })
   }
-
-  // deleteUser(id:number): Observable<any>{
-  //   const url = `${this.baseUrl}/${id}`;
-  //   return this.http.delete(url, this.httpOptions).pipe(
-  //     catchError(
-  //       (async () => new Error('Error in Delete'))
-  //     )
-  //   )
-  // }
   
 }

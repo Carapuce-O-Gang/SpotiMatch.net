@@ -1,5 +1,5 @@
-export class Auth {
-  tokenType!: string;
-  token!: string;
-  expiredDate!: string;
+export interface Auth {
+  tokenType: string;
+  token: string;
+  expiredDate: string;
 }
