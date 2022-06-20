@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,6 +7,11 @@ namespace SpotiMatch.Database.Entities
 {
     public class User
     {
+        public User()
+        {
+            Images = new HashSet<Image>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -32,5 +38,7 @@ namespace SpotiMatch.Database.Entities
         public string RefreshToken { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public virtual ICollection<Image> Images { get; set;}
     }
 }
