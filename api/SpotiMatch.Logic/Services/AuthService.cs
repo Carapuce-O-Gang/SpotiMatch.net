@@ -148,14 +148,7 @@ namespace SpotiMatch.Logic.Services
                 return null;
             }
 
-            ImageDto profileImage = profile.Images[0];
-
-            return new Image
-            {
-                Url = profileImage.Url,
-                Height = profileImage.Height,
-                Width = profileImage.Width
-            };
+            return profile.Images[0].ToEntity(Mapper);
         }
     }
 }
