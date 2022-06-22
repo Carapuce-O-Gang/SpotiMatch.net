@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
@@ -22,23 +24,18 @@ namespace SpotiMatch.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> Get()
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            IEnumerable<UserDto> users = await UserService.GetUsers(HttpContext.RequestAborted);
+            ClaimsPrincipal currentUser = HttpContext.User;
 
-            if (users == null || !users.Any())
+            if (!currentUser.HasClaim(c => c.Type == "Id"))
             {
-                return NotFound();
+                return StatusCode(400);
             }
 
-            return Ok(users);
-        }
+            int userId = Int32.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == "Id").Value);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> Get(int id)
-        {
-
-            UserDto user = await UserService.GetUser(id, HttpContext.RequestAborted);
+            UserDto user = await UserService.GetUser(userId, HttpContext.RequestAborted);
 
             if (user == null)
             {

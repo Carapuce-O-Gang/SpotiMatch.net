@@ -1,4 +1,4 @@
-export interface RegisterData {
+export interface Register {
   name: string;
   displayName: string;
   email: string;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using AutoMapper;
-
 using Entities = SpotiMatch.Database.Entities;
 using Models = SpotiMatch.Shared.Models;
 
@@ -22,11 +22,13 @@ namespace SpotiMatch.Logic.Mappings
                 .ForMember(m => m.Name, o => o.MapFrom(e => e.Name))
                 .ForMember(m => m.DisplayName, o => o.MapFrom(e => e.DisplayName))
                 .ForMember(m => m.Email, o => o.MapFrom(e => e.Email))
+                .ForMember(m => m.ProfilePicture, o => o.MapFrom(e => e.Images.FirstOrDefault() != null ? e.Images.First().Url : null))
                 .ForMember(m => m.AuthorizationToken, o => o.MapFrom(e => e.AuthorizationToken))
                 .ForMember(m => m.AccessToken, o => o.MapFrom(e => e.AccessToken))
                 .ForMember(m => m.CreatedOn, o => o.MapFrom(e => e.CreatedOn))
                 .ReverseMap()
-                .ForMember(e => e.Password, o => o.Ignore());
+                .ForMember(e => e.Password, o => o.Ignore())
+                .ForMember(e => e.Images, o => o.Ignore());
         }
     }
 }

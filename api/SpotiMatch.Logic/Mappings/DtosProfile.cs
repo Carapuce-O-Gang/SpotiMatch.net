@@ -12,7 +12,7 @@ namespace SpotiMatch.Logic.Mappings
     {
         public DtosProfile()
         {
-            this.CreateUserDtoMap();
+            CreateUserDtoMap();
         }
 
         private void CreateUserDtoMap()
@@ -23,6 +23,7 @@ namespace SpotiMatch.Logic.Mappings
                 .ForMember(m => m.DisplayName, o => o.MapFrom(d => d.DisplayName))
                 .ForMember(m => m.Email, o => o.MapFrom(d => d.Email))
                 .ForMember(m => m.AccessToken, o => o.Ignore())
+                .ForMember(m => m.ProfilePicture, o => o.MapFrom(d => d.ProfilePicture))
                 .ForMember(m => m.CreatedOn, o => o.MapFrom(d => d.CreatedOn))
                 .ReverseMap();
         }

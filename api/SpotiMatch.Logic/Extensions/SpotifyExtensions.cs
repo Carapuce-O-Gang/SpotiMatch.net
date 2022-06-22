@@ -3,6 +3,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using AutoMapper;
+using SpotiMatch.Database.Entities;
+using SpotiMatch.Shared.Dtos.Spotify;
 
 namespace SpotiMatch.Logic.Extensions
 {
@@ -24,6 +27,11 @@ namespace SpotiMatch.Logic.Extensions
             });
 
             return deserializedObject;
+        }
+
+        public static Image ToEntity(this ImageDto image, IMapper mapper)
+        {
+            return mapper.Map<Image>(image);
         }
     }
 }

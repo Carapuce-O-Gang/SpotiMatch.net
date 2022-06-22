@@ -52,7 +52,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 
 //Guards
-import { AuthorizeGuard } from 'src/guards/authorize';
+import { AuthorizeGuard } from '@guards/authorize';
 
 // Custom components
 import { HomepageComponent } from '@components/homepage/homepage.component';

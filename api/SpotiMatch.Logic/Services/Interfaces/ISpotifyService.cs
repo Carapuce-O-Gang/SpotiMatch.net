@@ -11,5 +11,6 @@ namespace SpotiMatch.Logic.Services.Interfaces
     {
         Task<TokenDto> GetAccessToken(string authorizationToken, CancellationToken cancellationToken = default);
         Task<TokenDto> RefreshToken(string refreshToken, CancellationToken cancellationToken = default);
+        Task<ProfileDto> GetProfile(string accessToken, CancellationToken cancellationToken = default);
     }
 }

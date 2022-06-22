@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Crypt = BCrypt.Net;
 using System.Linq;
 using AutoMapper;
@@ -58,22 +59,17 @@ namespace SpotiMatch.Logic.Services
                 return null;
             }
 
-            // Generate spotify access token
-            TokenDto accessToken;
-            if (user.RefreshToken == null)
+            // Refresh spotify access token
+            if (user.RefreshToken != null)
             {
-                accessToken = await SpotifyService.GetAccessToken(user.AuthorizationToken, cancellationToken);
+                TokenDto accessToken = await SpotifyService.RefreshToken(user.RefreshToken, cancellationToken);
+
+                if (accessToken == null || accessToken.AccessToken == null)
+                {
+                    return null;
+                }
+
                 user.AccessToken = accessToken.AccessToken;
-                user.RefreshToken = accessToken.RefreshToken;
-            } else 
-            {
-                accessToken = await SpotifyService.RefreshToken(user.RefreshToken, cancellationToken);
-                user.AccessToken = accessToken.AccessToken;
-            }
-            
-            if (accessToken == null || accessToken.AccessToken == null)
-            {
-                return null;
             }
 
             await UserRepository.UpdateUser(user, cancellationToken);
@@ -88,11 +84,15 @@ namespace SpotiMatch.Logic.Services
             string issuer = Configuration.GetValue<string>("AppConfiguration:AppName");
             int tokenValidity = Configuration.GetValue<int>("AppConfiguration:AuthenticationTokenValidity");
 
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+
             JwtSecurityToken authToken = new JwtSecurityToken(
                 issuer: issuer,
                 signingCredentials: credentials,
                 notBefore: DateTime.UtcNow,
-                expires: DateTime.UtcNow.AddSeconds(tokenValidity));
+                expires: DateTime.UtcNow.AddSeconds(tokenValidity),
+                claims: claims);
 
             return new AuthDto
             {
@@ -109,17 +109,46 @@ namespace SpotiMatch.Logic.Services
                 return null;
             }
 
+            TokenDto accessToken = await SpotifyService.GetAccessToken(register.AuthorizationToken, cancellationToken);
+
+            if (accessToken == null)
+            {
+                return null;
+            }
+
+            List<Image> images = new List<Image>();
+            Image profileImage = await GetProfilePicture(accessToken.AccessToken, cancellationToken);
+            if (profileImage != null)
+            {
+                images.Add(profileImage);
+            }
+
             User userToAdd = new User
             {
                 Name = register.Name,
                 DisplayName = register.DisplayName,
                 Email = register.Email,
                 Password = Crypt.BCrypt.HashPassword(register.Password),
-                AuthorizationToken = register.AuthorizationToken
+                AuthorizationToken = register.AuthorizationToken,
+                AccessToken = accessToken.AccessToken,
+                RefreshToken = accessToken.RefreshToken,
+                Images = images
             };
 
             return (await UserRepository.AddUser(userToAdd, cancellationToken))
                 .ToDto(Mapper);
+        }
+
+        private async Task<Image> GetProfilePicture(string accessToken, CancellationToken cancellationToken)
+        {
+            ProfileDto profile = await SpotifyService.GetProfile(accessToken, cancellationToken);
+            
+            if (profile.Images[0] == null)
+            {
+                return null;
+            }
+
+            return profile.Images[0].ToEntity(Mapper);
         }
     }
 }

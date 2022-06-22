@@ -54,5 +54,13 @@ namespace SpotiMatch.Logic.Services
             HttpResponseMessage response = await Client.PostAsync("https://accounts.spotify.com/api/token", content, cancellationToken);
             return await response.Deserialize<TokenDto>();
         }
+
+        public async Task<ProfileDto> GetProfile(string accessToken, CancellationToken cancellationToken)
+        {
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            HttpResponseMessage response = await Client.GetAsync("https://api.spotify.com/v1/me", cancellationToken);
+            return await response.Deserialize<ProfileDto>();
+        }
     }
 }
