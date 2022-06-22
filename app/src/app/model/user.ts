@@ -4,5 +4,5 @@ export interface User {
   displayName: string;
   email: string;
   authorizationToken: string;
-  createdOn: string
+  createdOn: string;
 }

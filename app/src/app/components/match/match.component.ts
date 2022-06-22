@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { average } from 'color.js'
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
+import { User } from 'src/app/model/user';
+
 
 @Component({
   selector: 'app-match',
@@ -8,14 +10,19 @@ import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-d
   styleUrls: ['./match.component.scss']
 })
 export class MatchComponent implements OnInit {
-
-  userColorDominant: any;
-  otherUserColorDominant: any;
-  showText: boolean = false;
   num = 60;
-  options:number = 0;
-  style: any;
-
+  
+  //public
+  public friendlist: User[] = [];
+  public target: User[] = [];
+  public showText: boolean = false;
+  public options:number = 0;
+  public style: any;
+  public user: User | undefined;
+  //private
+  private userColorDominant: any;
+  private otherUserColorDominant: any;
+  
 
   constructor() { }
 
@@ -53,10 +60,6 @@ export class MatchComponent implements OnInit {
     }
   }
 
-  friendlist = [{name:'Pedro',age:'14', img:'https://pbs.twimg.com/media/E0o2L4iWUAUiA9I.jpg'},{name:'Paul',age:'14', img:'https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386'}];
-
-  target: any[] = [];
-
   drop(event: CdkDragDrop<any[]>){
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -78,12 +81,11 @@ export class MatchComponent implements OnInit {
           event.currentIndex,
         );
       }
-      average(this.target[0].img,{ format: 'hex' }).then( colorHexa => {
+      average(this.target[0].name,{ format: 'hex' }).then( colorHexa => {
         this.otherUserColorDominant =  colorHexa ;
         this.style = this.otherUserSetMyStyles();
       },);
     }
   }
-
 
 }
