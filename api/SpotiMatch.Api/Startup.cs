@@ -1,4 +1,5 @@
 using System.Text;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,10 +30,23 @@ namespace SpotiMatch.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Cors
+            string[] origins = Configuration.GetSection("AppConfiguration:AllowedOrigins")?
+                .GetChildren()?
+                .Select(x => x.Value)?
+                .ToArray();
+
+            services.AddCors(o => o.AddDefaultPolicy(p => p
+                .WithOrigins(origins)
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()));
+
             // Mapper
             services.AddAutoMapper(
                 typeof(EntitiesProfile),
-                typeof(DtosProfile)
+                typeof(DtosProfile),
+                typeof(SpotifyProfile)
             );
 
             // Authentification
@@ -102,11 +116,10 @@ namespace SpotiMatch.Api
             app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
-
             app.UseAuthentication();
             app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

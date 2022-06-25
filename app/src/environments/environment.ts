@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   clientId: '22968964618f4fd38f101b2d020e7cda',
   redirectUri: 'https://localhost:4200/register',
-  apiBaseUrl: 'https://localhost:44378'
+  apiBaseUrl: 'https://localhost:44378/api'
 };
 
 /*
