@@ -15,7 +15,7 @@
       <mat-card class="card" [ngStyle]="userSetMyStyles()">
         <div>
           <div mat-card-avatar
-            style="background-image: url('{{user}}');"
+            style="background-image: url('{{user.profilePicture}}');"
             class="card-header-image"></div>
         </div>
         <mat-card-content>
@@ -40,7 +40,7 @@
             <li class="itemCardDropZone" *ngFor="let otherUser of target">
               <mat-card class="card" [ngStyle]="style">
                 <div>
-                  <div mat-card-avatar style="background-image: url('{{otherUser.name}}');" class="card-header-image">
+                  <div mat-card-avatar style="background-image: url('{{otherUser.profilePicture}}');" class="card-header-image">
                   </div>
                 </div>
                 <mat-card-content>
