@@ -27,6 +27,12 @@ export class ApiService {
     return this.http.get<User>(url, { headers: this.headers });
   }
 
+
+  public getFriendList(): Observable<User[]> {
+    const url = `${environment.apiBaseUrl}/friendlist`;
+    return this.http.get<User[]>(url, { headers: this.headers });
+  }
+
   public login(login: Login): Observable<Auth> {
     const url = `${environment.apiBaseUrl}/login`;
     return this.http.post<Auth>(url, login, { headers: this.headers });

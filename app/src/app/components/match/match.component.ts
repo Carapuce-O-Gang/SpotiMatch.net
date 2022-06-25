@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { average } from 'color.js'
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { User } from 'src/app/model/user';
+import { ApiService } from '@services/api-service/api.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,18 +20,27 @@ export class MatchComponent implements OnInit {
   public showText: boolean = false;
   public options:number = 0;
   public style: any;
-  public user: User | undefined;
+  public user!: User;
+  public subscriptions: Subscription[] = [];
   //private
   private userColorDominant: any;
   private otherUserColorDominant: any;
   
 
-  constructor() { }
+  constructor(private apiService:ApiService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.subscriptions.push(
+      this.apiService.getUser().subscribe( user => this.user = user),
+      this.apiService.getFriendList().subscribe( friendList => this.friendlist = friendList)
+    );
     average('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386',{ format: 'hex' }).then( colorHexa => {
       this.userColorDominant =  colorHexa ;
     },);
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   userSetMyStyles() {
