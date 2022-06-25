@@ -31,8 +31,9 @@ export class MatchComponent implements OnInit {
 
   ngOnInit(){
     this.subscriptions.push(
-      this.apiService.getUser().subscribe( user => this.user = user));
-      this.apiService.getFriendList().subscribe( friendList => this.friendlist = friendList);
+      this.apiService.getUser().subscribe( user => this.user = user),
+      this.apiService.getFriendList().subscribe( friendList => this.friendlist = friendList)
+    );
     average('https://i.scdn.co/image/ab6775700000ee857b6e5a4ffdf90095c68ae386',{ format: 'hex' }).then( colorHexa => {
       this.userColorDominant =  colorHexa ;
     },);
