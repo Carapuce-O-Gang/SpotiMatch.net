@@ -25,7 +25,7 @@ namespace SpotiMatch.Database.Repositories
 
         public async Task<User> GetUser(int id, CancellationToken cancellationToken)
         {
-            User user = await DatabaseContext.Users.FindAsync(new object[] { id }, cancellationToken)
+            User user = await DatabaseContext.Users.Include(u => u.Images).FirstOrDefaultAsync(u => u.Id == id, cancellationToken)
                 ?? throw new ArgumentNullException("User not found");
 
             return user;

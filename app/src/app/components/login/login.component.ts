@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Login } from '@models/login.model';
 import { ApiService } from '@services/api-service/api.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-login',
@@ -25,6 +26,17 @@ export class LoginComponent implements OnInit {
 		}
 
 		return '';
+	}
+
+
+	redirectionSpotify(){
+		const authorizeUrl = 'https://accounts.spotify.com/authorize'+
+		`?client_id=${environment.clientId}`+
+		`&redirect_uri=${environment.redirectUri}`+
+		`&response_type=code`;
+
+		window.location.href = authorizeUrl;
+		return true;
 	}
 
 	public onSubmit() {
