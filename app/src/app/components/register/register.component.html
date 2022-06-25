@@ -13,8 +13,8 @@
 			<div>
 				<mat-form-field appearance="fill">
 					<mat-label>Username</mat-label>
-					<input matInput type="text" [formControl]="username" required>
-					<mat-error *ngIf="username.invalid">{{ getErrorMessage(username) }}</mat-error>
+					<input matInput type="text" [formControl]="displayName" required>
+					<mat-error *ngIf="displayName.invalid">{{ getErrorMessage(displayName) }}</mat-error>
 				</mat-form-field>
 			</div>
 			<div>
