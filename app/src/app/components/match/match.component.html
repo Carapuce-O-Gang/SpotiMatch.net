@@ -1,0 +1,62 @@
+<mat-drawer-container class="content-match" autosize cdkDropListGroup>
+  <mat-drawer #drawer class="sideNav" mode="side" position="end">
+    <div class="side-nav-friendlist">
+      <span class="sidenav-title"> FriendList </span>
+      <ul cdkDropList [cdkDropListData]="friendlist" class="sideNavList" (cdkDropListDropped)="drop($event)">
+        <li class="itemDrag" *ngFor="let otherUser of friendlist" cdkDrag>
+          {{otherUser.name}}
+        </li>
+      </ul>
+    </div>
+  </mat-drawer>
+  <div class="content-card">
+
+    <div class="card" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="card" [ngStyle]="userSetMyStyles()">
+        <div>
+          <div mat-card-avatar
+            style="background-image: url('{{user.profilePicture}}');"
+            class="card-header-image"></div>
+        </div>
+        <mat-card-content>
+          {{user.displayName}}
+        </mat-card-content>
+      </mat-card>
+      <div class="spaceBetweenMatCard" fxLayout="row" fxLayoutAlign="center center">
+        <button *ngIf="target.length > 0" class="buttonMatch" (click)="matchButtonClick()"
+          onclick="style.display = 'none'">
+          Match
+        </button>
+
+        <div [hidden]="!showText" [style.height]="showText ? '350px' : '0px'" class="textMatch">
+          <app-results [options]="options"></app-results>
+        </div>
+      </div>
+      <div>
+
+
+        <div class="drop-zone">
+          <ul cdkDropList [cdkDropListData]="target" (cdkDropListDropped)="drop($event)">
+            <li class="itemCardDropZone" *ngFor="let otherUser of target">
+              <mat-card class="card" [ngStyle]="style">
+                <div>
+                  <div mat-card-avatar style="background-image: url('{{otherUser.profilePicture}}');" class="card-header-image">
+                  </div>
+                </div>
+                <mat-card-content>
+                  {{otherUser.name}}
+                </mat-card-content>
+              </mat-card>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="button-menu" mat-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+
+</mat-drawer-container>

@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<mat-card class="spotimatch-login-card">
+	<mat-card-title>Sign In</mat-card-title>
+	<mat-card-content>
+		<form>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Username</mat-label>
+					<input matInput type="text" [formControl]="username" required>
+					<mat-error *ngIf="username.invalid">{{ getErrorMessage(username) }}</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Password</mat-label>
+					<input matInput type="password" [formControl]="password" required>
+					<mat-error *ngIf="password.invalid">{{ getErrorMessage(password) }}</mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+		<a (click)="redirectionSpotify()">New on our app ?</a>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button color="primary" (click)="onSubmit()">Connect</button>
+	</mat-card-actions>
+</mat-card>
